@@ -1,0 +1,8 @@
+.header__navigation {
+  display: flex;
+  min-width: 220px;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
