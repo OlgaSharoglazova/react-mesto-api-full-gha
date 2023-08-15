@@ -58,29 +58,16 @@ function App() {
     //eslint-disable-next-line
   }, []);
 
-  React.useEffect(() => {
-    getInfoUser();
-    getCards();
-    //eslint-disable-next-line
-  }, []);
-
-  function getInfoUser() {
-    api
-      .getProfile()
-      .then((user) => {
-        setСurrentUser(user);
+  React.useEffect( () => {
+    const token = localStorage.getItem("jwt");
+    if (token) { Promise.all([ api.getProfile(), api.getInitialCards() ])
+      .then(( [ userdata, cardsdata] ) => {
+        setСurrentUser(userdata);
+        setCards(cardsdata);
       })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-  }
-
-  function getCards() {
-    api
-      .getInitialCards(cards)
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-  }
+      .catch( (err) => { console.log(`Ошибка: ${err}`) })
+    }
+  }, [isLoggedIn])
 
   function handleRegister(email, password) {
     auth
@@ -124,7 +111,7 @@ function App() {
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
