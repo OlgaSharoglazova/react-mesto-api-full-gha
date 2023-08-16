@@ -45,9 +45,9 @@ function App() {
         setUserData(data);
         setisLoggedIn(true);
         navigate(location.pathname);
-        setEmail(data.data.email);
+        setEmail(data.email);
       })
-      .catch((err) => {
+      .catch(() => {
         setisLoggedIn(false);
         setUserData({});
       });
@@ -91,6 +91,7 @@ function App() {
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         navigate("/");
+        setСurrentUser(data.user);
         setEmail(email);
         setisLoggedIn(true);
       })
