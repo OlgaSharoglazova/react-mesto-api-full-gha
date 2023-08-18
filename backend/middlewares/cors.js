@@ -1,6 +1,6 @@
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const ALLOWED_CORS = [
-  'http://localhost:3001',
+  'https://bsk.nomoreparties.co',
 ];
 
 module.exports = (req, res, next) => {
