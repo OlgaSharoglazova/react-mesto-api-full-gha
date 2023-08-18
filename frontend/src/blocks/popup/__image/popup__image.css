@@ -1,0 +1,11 @@
+.popup__image {
+  position: relative;
+  background-color: transparent;
+  color: #FFFFFF;
+  max-width: 75vw;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-family: "Inter", Arial, sans-serif;
+  max-height: 75vh;
+}
