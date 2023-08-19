@@ -26,9 +26,9 @@ class Api {
     });
     return this._checkResponse(response);
   }
-
-  editProfile(dataUser) {
-    return fetch(`${this._baseUrl}/users/me`, {
+ 
+  async editProfile(dataUser) {
+    const response = await fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -38,59 +38,73 @@ class Api {
         name: `${dataUser.name}`,
         about: `${dataUser.about}`,
       }),
-    }).then(this._checkResponse);
+    });
+    return this._checkResponse(response);
   }
 
-  addCard(dataCard) {
-    return fetch(`${this._baseUrl}/cards`, {
+  async addCard(dataCard) {
+    const response = await fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: JSON.stringify(dataCard),
-    }).then(this._checkResponse);
+    });
+    return this._checkResponse(response);
   }
 
-  deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+  async deleteCard(id) {
+    const response = await fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
-    }).then(this._checkResponse);
+    });
+    return this._checkResponse(response);
+  }
+
+  async addLikeCard(id) {
+    const response = await fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
+    return this._checkResponse(response);
+  }
+
+  async removeLikeCard(id) {
+    const response = await fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
+    return this._checkResponse(response);
   }
 
   changeLikeCardStatus(id, isLiked) {
     if (isLiked) {
-      return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }).then(this._checkResponse);
+      return this.addLikeCard(id);
     } else {
-      return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }).then(this._checkResponse);
+      return this.removeLikeCard(id);
     }
   }
 
-  changeAvatar(avatar) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+  async changeAvatar(avatar) {
+    const response = await fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: JSON.stringify(avatar),
-    }).then(this._checkResponse);
+    });
+    return this._checkResponse(response);
   }
 }
 
