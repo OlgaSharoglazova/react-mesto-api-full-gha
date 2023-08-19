@@ -47,8 +47,7 @@ function App() {
         navigate(location.pathname);
         setEmail(data.email);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setisLoggedIn(false);
         setUserData({});
       });
