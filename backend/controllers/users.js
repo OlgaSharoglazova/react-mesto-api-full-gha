@@ -23,13 +23,7 @@ module.exports.getUserMe = (req, res, next) => {
       }
       res.send(user);
     })
-    .catch((err) => {
-      if (err.kind === 'ObjectId') {
-        next(new BadRequest('Переданы некорректные данные'));
-        return;
-      }
-      next(err);
-    });
+    .catch(next);
 };
 
 module.exports.getUser = (req, res, next) => {
