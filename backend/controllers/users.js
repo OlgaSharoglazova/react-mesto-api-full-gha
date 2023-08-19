@@ -35,7 +35,7 @@ module.exports.getUser = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.kind === 'ObjectId') {
+      if (err.name === 'ValidationError') {
         next(new BadRequest('Переданы некорректные данные'));
         return;
       }
