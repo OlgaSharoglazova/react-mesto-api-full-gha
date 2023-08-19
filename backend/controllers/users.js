@@ -104,7 +104,7 @@ module.exports.updateUser = (req, res, next) => {
       return res.send(user);
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         next(new BadRequest('Переданы некорректные данные'));
         return;
       }
@@ -118,7 +118,7 @@ module.exports.updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .then((newAvatar) => res.send(newAvatar))
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         next(new BadRequest('Переданы некорректные данные'));
       } else {
         next(err);
