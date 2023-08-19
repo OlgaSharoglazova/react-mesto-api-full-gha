@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес 62.84.123.174
+IP 62.84.123.174
 
-Frontend https://bsk.nomoreparties.co/
+Frontend https://bsk.nomoreparties.co
 
-Backend https://api.bsk.nomoreparties.co/
+Backend https://api.bsk.nomoreparties.co
