@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const routes = require('./routes/index');
-const { NOT_FOUND } = require('./utils/constants');
+const NotFound = require('./errors/notFound');
 const errorsCode = require('./middlewares/errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
@@ -26,8 +26,8 @@ app.get('/crash-test', () => {
 
 app.use(routes);
 
-app.use('*', (_req, res) => {
-  res.status(NOT_FOUND).json({ message: 'Страница не найдена' });
+app.use('*', (_req, _res, next) => {
+  next(new NotFound('Страница не найдена'));
 });
 
 mongoose.connect(DB_URL, {
